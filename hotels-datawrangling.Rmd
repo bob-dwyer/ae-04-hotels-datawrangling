@@ -66,10 +66,10 @@ In the following chunk, replace
 **Note:** You will need to set `eval=TRUE` when you have an answer you want to 
 try out.
 
-```{r some-children, eval=FALSE}
+```{r some-children, eval=TRUE}
 hotels %>%
   filter(
-    children [AT LEAST] 1 [OR] babies [AT LEAST] 1
+    children >= 1 | babies >= 1
     )
 ```
 
@@ -81,15 +81,24 @@ number of bookings in resort hotels that have more than 1 child **or** baby
 in the room? Then, do the same for city hotels, and compare the numbers of 
 rows in the resulting filtered data frames.
 
+## My hypothesis is that there will be more in resort hotels...Let's check it out...
+
 ```{r resort-children}
-# add code here
-# pay attention to correctness and code style
+hotels %>% 
+  filter(
+    hotel == "Resort Hotel",
+    children >= 1 | babies >= 1
+  )
 ```
 
 ```{r city-children}
-# add code here
-# pay attention to correctness and code style
+hotels %>% 
+  filter(
+    hotel == "City Hotel",
+    children >= 1 | babies >= 1
+  )
 ```
+## Guess I was wrong! More in City Hotels. Which I guess makes sense, since there are likely many more city hotel than resorts?
 
 ### Exercise 5.
 
@@ -98,14 +107,19 @@ results in descending order so the most common observation is on top. What is
 the most common number of adults in bookings in this dataset? Are there any 
 surprising results?
 
+Answer: 2 adults is most frequent -- followed by 1, which is not surprising. But 26, 27 adults is a little weird.
+
 **Note:** Don't forget to label your R chunk as well (where it says `label-me-1`). 
 Your label should be short, informative, and shouldn't include spaces. It also 
 shouldn't repeat a previous label, otherwise R Markdown will give you an 
 error about repeated R chunk labels.
 
-```{r label-me-1}
-# add code here
-# pay attention to correctness and code style
+```{r Frequency-Adults}
+hotels %>% 
+  count(adults) %>% 
+  group_by(adults) %>%            
+#Reference: https://stackoverflow.com/questions/34860535/how-to-use-dplyr-to-generate-a-frequency-table
+  arrange(desc(n))
 ```
 
 ### Exercise 6.
@@ -114,11 +128,16 @@ Repeat Exercise 5, once for canceled bookings (`is_canceled` coded as 1) and
 once for not canceled bookings (`is_canceled` coded as 0). What does this 
 reveal about the surprising results you spotted in the previous exercise?
 
+## The following tables show that all of the reservations with a large number of adults (greater than 4) were canceled.
+
 **Note:** Don't forget to label your R chunk as well (where it says `label-me-2`). 
 
-```{r label-me-2}
-# add code here
-# pay attention to correctness and code style
+```{r canceled_bookings}
+hotels %>% 
+  count(adults, is_canceled) %>% 
+  group_by(adults) %>%            
+#Reference: https://stackoverflow.com/questions/34860535/how-to-use-dplyr-to-generate-a-frequency-table
+  arrange(desc(adults))
 ```
 
 ### Exercise 7.
