@@ -359,7 +359,7 @@ display: none;
 
 
 <p>?skim— title: “Hotel bookings - data wrangling” author: “YOU” date:
-“2023-02-07” output: html_document: toc: yes toc_float: yes —</p>
+“2023-02-08” output: html_document: toc: yes toc_float: yes —</p>
 <pre class="r"><code>library(tidyverse)
 library(skimr)</code></pre>
 <pre class="r"><code># From TidyTuesday: https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-02-11/readme.md
@@ -895,6 +895,26 @@ when you have an answer you want to try out.</p>
     country !=&quot;USA&quot;, 
     lead_time &lt; 1
     )</code></pre>
+<pre><code>## # A tibble: 6,174 x 32
+##    hotel  is_ca~1 lead_~2 arriv~3 arriv~4 arriv~5 arriv~6 stays~7 stays~8 adults
+##    &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Resor~       0       0    2015 July         27       1       0       2      2
+##  2 Resor~       0       0    2015 July         27       1       0       1      2
+##  3 Resor~       0       0    2015 July         27       2       0       1      2
+##  4 Resor~       0       0    2015 July         27       2       0       1      2
+##  5 Resor~       0       0    2015 July         27       2       0       1      2
+##  6 Resor~       0       0    2015 July         28       5       1       0      2
+##  7 Resor~       0       0    2015 July         28       6       0       0      1
+##  8 Resor~       0       0    2015 July         28       7       0       1      1
+##  9 Resor~       0       0    2015 July         28       7       0       1      3
+## 10 Resor~       0       0    2015 July         28       7       0       1      1
+## # ... with 6,164 more rows, 22 more variables: children &lt;dbl&gt;, babies &lt;dbl&gt;,
+## #   meal &lt;chr&gt;, country &lt;chr&gt;, market_segment &lt;chr&gt;,
+## #   distribution_channel &lt;chr&gt;, is_repeated_guest &lt;dbl&gt;,
+## #   previous_cancellations &lt;dbl&gt;, previous_bookings_not_canceled &lt;dbl&gt;,
+## #   reserved_room_type &lt;chr&gt;, assigned_room_type &lt;chr&gt;, booking_changes &lt;dbl&gt;,
+## #   deposit_type &lt;chr&gt;, agent &lt;chr&gt;, company &lt;chr&gt;, days_in_waiting_list &lt;dbl&gt;,
+## #   customer_type &lt;chr&gt;, adr &lt;dbl&gt;, required_car_parking_spaces &lt;dbl&gt;, ...</code></pre>
 </div>
 <div id="exercise-3." class="section level3">
 <h3>Exercise 3.</h3>
@@ -910,8 +930,28 @@ two places)</li>
 when you have an answer you want to try out.</p>
 <pre class="r"><code>hotels %&gt;%
   filter(
-    children [AT LEAST] 1 [OR] babies [AT LEAST] 1
+    children &gt;= 1 | babies &gt;= 1
     )</code></pre>
+<pre><code>## # A tibble: 9,332 x 32
+##    hotel  is_ca~1 lead_~2 arriv~3 arriv~4 arriv~5 arriv~6 stays~7 stays~8 adults
+##    &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Resor~       0      18    2015 July         27       1       0       4      2
+##  2 Resor~       1      47    2015 July         27       2       2       5      2
+##  3 Resor~       0       1    2015 July         27       2       0       1      2
+##  4 Resor~       0      10    2015 July         27       3       0       2      2
+##  5 Resor~       1      79    2015 July         27       3       6      15      2
+##  6 Resor~       0     101    2015 July         27       3       2       5      2
+##  7 Resor~       0      92    2015 July         27       4       2       4      1
+##  8 Resor~       1      26    2015 July         27       4       2       5      2
+##  9 Resor~       0     102    2015 July         27       4       2       5      2
+## 10 Resor~       0      78    2015 July         27       4       2       5      2
+## # ... with 9,322 more rows, 22 more variables: children &lt;dbl&gt;, babies &lt;dbl&gt;,
+## #   meal &lt;chr&gt;, country &lt;chr&gt;, market_segment &lt;chr&gt;,
+## #   distribution_channel &lt;chr&gt;, is_repeated_guest &lt;dbl&gt;,
+## #   previous_cancellations &lt;dbl&gt;, previous_bookings_not_canceled &lt;dbl&gt;,
+## #   reserved_room_type &lt;chr&gt;, assigned_room_type &lt;chr&gt;, booking_changes &lt;dbl&gt;,
+## #   deposit_type &lt;chr&gt;, agent &lt;chr&gt;, company &lt;chr&gt;, days_in_waiting_list &lt;dbl&gt;,
+## #   customer_type &lt;chr&gt;, adr &lt;dbl&gt;, required_car_parking_spaces &lt;dbl&gt;, ...</code></pre>
 </div>
 <div id="exercise-4." class="section level3">
 <h3>Exercise 4.</h3>
@@ -921,24 +961,101 @@ babies in city hotels or resort hotels? Test your intuition. Using
 that have more than 1 child <strong>or</strong> baby in the room? Then,
 do the same for city hotels, and compare the numbers of rows in the
 resulting filtered data frames.</p>
-<pre class="r"><code># add code here
-# pay attention to correctness and code style</code></pre>
-<pre class="r"><code># add code here
-# pay attention to correctness and code style</code></pre>
 </div>
+</div>
+<div id="my-hypothesis-is-that-there-will-be-more-in-resort-hotelslets-check-it-out" class="section level2">
+<h2>My hypothesis is that there will be more in resort hotels…Let’s
+check it out…</h2>
+<pre class="r"><code>hotels %&gt;% 
+  filter(
+    hotel == &quot;Resort Hotel&quot;,
+    children &gt;= 1 | babies &gt;= 1
+  )</code></pre>
+<pre><code>## # A tibble: 3,929 x 32
+##    hotel  is_ca~1 lead_~2 arriv~3 arriv~4 arriv~5 arriv~6 stays~7 stays~8 adults
+##    &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Resor~       0      18    2015 July         27       1       0       4      2
+##  2 Resor~       1      47    2015 July         27       2       2       5      2
+##  3 Resor~       0       1    2015 July         27       2       0       1      2
+##  4 Resor~       0      10    2015 July         27       3       0       2      2
+##  5 Resor~       1      79    2015 July         27       3       6      15      2
+##  6 Resor~       0     101    2015 July         27       3       2       5      2
+##  7 Resor~       0      92    2015 July         27       4       2       4      1
+##  8 Resor~       1      26    2015 July         27       4       2       5      2
+##  9 Resor~       0     102    2015 July         27       4       2       5      2
+## 10 Resor~       0      78    2015 July         27       4       2       5      2
+## # ... with 3,919 more rows, 22 more variables: children &lt;dbl&gt;, babies &lt;dbl&gt;,
+## #   meal &lt;chr&gt;, country &lt;chr&gt;, market_segment &lt;chr&gt;,
+## #   distribution_channel &lt;chr&gt;, is_repeated_guest &lt;dbl&gt;,
+## #   previous_cancellations &lt;dbl&gt;, previous_bookings_not_canceled &lt;dbl&gt;,
+## #   reserved_room_type &lt;chr&gt;, assigned_room_type &lt;chr&gt;, booking_changes &lt;dbl&gt;,
+## #   deposit_type &lt;chr&gt;, agent &lt;chr&gt;, company &lt;chr&gt;, days_in_waiting_list &lt;dbl&gt;,
+## #   customer_type &lt;chr&gt;, adr &lt;dbl&gt;, required_car_parking_spaces &lt;dbl&gt;, ...</code></pre>
+<pre class="r"><code>hotels %&gt;% 
+  filter(
+    hotel == &quot;City Hotel&quot;,
+    children &gt;= 1 | babies &gt;= 1
+  )</code></pre>
+<pre><code>## # A tibble: 5,403 x 32
+##    hotel  is_ca~1 lead_~2 arriv~3 arriv~4 arriv~5 arriv~6 stays~7 stays~8 adults
+##    &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+##  1 City ~       1     100    2015 July         28       6       1       4      2
+##  2 City ~       0      69    2015 July         28       7       0       2      2
+##  3 City ~       0      67    2015 July         28      10       2       3      2
+##  4 City ~       1      60    2015 July         29      13       1       0      2
+##  5 City ~       0       0    2015 July         30      24       0       2      2
+##  6 City ~       0       0    2015 July         30      24       0       2      2
+##  7 City ~       0       0    2015 July         30      25       0       1      2
+##  8 City ~       0      84    2015 July         30      25       0       1      2
+##  9 City ~       0      74    2015 July         31      27       3       7      2
+## 10 City ~       0      75    2015 July         31      28       0       3      2
+## # ... with 5,393 more rows, 22 more variables: children &lt;dbl&gt;, babies &lt;dbl&gt;,
+## #   meal &lt;chr&gt;, country &lt;chr&gt;, market_segment &lt;chr&gt;,
+## #   distribution_channel &lt;chr&gt;, is_repeated_guest &lt;dbl&gt;,
+## #   previous_cancellations &lt;dbl&gt;, previous_bookings_not_canceled &lt;dbl&gt;,
+## #   reserved_room_type &lt;chr&gt;, assigned_room_type &lt;chr&gt;, booking_changes &lt;dbl&gt;,
+## #   deposit_type &lt;chr&gt;, agent &lt;chr&gt;, company &lt;chr&gt;, days_in_waiting_list &lt;dbl&gt;,
+## #   customer_type &lt;chr&gt;, adr &lt;dbl&gt;, required_car_parking_spaces &lt;dbl&gt;, ...</code></pre>
+</div>
+<div id="guess-i-was-wrong-more-in-city-hotels.-which-i-guess-makes-sense-since-there-are-likely-many-more-city-hotel-than-resorts" class="section level2">
+<h2>Guess I was wrong! More in City Hotels. Which I guess makes sense,
+since there are likely many more city hotel than resorts?</h2>
 <div id="exercise-5." class="section level3">
 <h3>Exercise 5.</h3>
 <p>Create a frequency table of the number of <code>adults</code> in a
 booking. Display the results in descending order so the most common
 observation is on top. What is the most common number of adults in
 bookings in this dataset? Are there any surprising results?</p>
+<p>Answer: 2 adults is most frequent – followed by 1, which is not
+surprising. But 26, 27 adults is a little weird.</p>
 <p><strong>Note:</strong> Don’t forget to label your R chunk as well
 (where it says <code>label-me-1</code>). Your label should be short,
 informative, and shouldn’t include spaces. It also shouldn’t repeat a
 previous label, otherwise R Markdown will give you an error about
 repeated R chunk labels.</p>
-<pre class="r"><code># add code here
-# pay attention to correctness and code style</code></pre>
+<pre class="r"><code>hotels %&gt;% 
+  count(adults) %&gt;% 
+  group_by(adults) %&gt;%            
+#Reference: https://stackoverflow.com/questions/34860535/how-to-use-dplyr-to-generate-a-frequency-table
+  arrange(desc(n))</code></pre>
+<pre><code>## # A tibble: 14 x 2
+## # Groups:   adults [14]
+##    adults     n
+##     &lt;dbl&gt; &lt;int&gt;
+##  1      2 89680
+##  2      1 23027
+##  3      3  6202
+##  4      0   403
+##  5      4    62
+##  6     26     5
+##  7      5     2
+##  8     20     2
+##  9     27     2
+## 10      6     1
+## 11     10     1
+## 12     40     1
+## 13     50     1
+## 14     55     1</code></pre>
 </div>
 <div id="exercise-6." class="section level3">
 <h3>Exercise 6.</h3>
@@ -946,20 +1063,61 @@ repeated R chunk labels.</p>
 (<code>is_canceled</code> coded as 1) and once for not canceled bookings
 (<code>is_canceled</code> coded as 0). What does this reveal about the
 surprising results you spotted in the previous exercise?</p>
+</div>
+</div>
+<div id="the-following-tables-show-that-all-of-the-reservations-with-a-large-number-of-adults-greater-than-4-were-canceled." class="section level2">
+<h2>The following tables show that all of the reservations with a large
+number of adults (greater than 4) were canceled.</h2>
 <p><strong>Note:</strong> Don’t forget to label your R chunk as well
 (where it says <code>label-me-2</code>).</p>
-<pre class="r"><code># add code here
-# pay attention to correctness and code style</code></pre>
-</div>
+<pre class="r"><code>hotels %&gt;% 
+  count(adults, is_canceled) %&gt;% 
+  group_by(adults) %&gt;%            
+#Reference: https://stackoverflow.com/questions/34860535/how-to-use-dplyr-to-generate-a-frequency-table
+  arrange(desc(adults))</code></pre>
+<pre><code>## # A tibble: 19 x 3
+## # Groups:   adults [14]
+##    adults is_canceled     n
+##     &lt;dbl&gt;       &lt;dbl&gt; &lt;int&gt;
+##  1     55           1     1
+##  2     50           1     1
+##  3     40           1     1
+##  4     27           1     2
+##  5     26           1     5
+##  6     20           1     2
+##  7     10           1     1
+##  8      6           1     1
+##  9      5           1     2
+## 10      4           0    46
+## 11      4           1    16
+## 12      3           0  4051
+## 13      3           1  2151
+## 14      2           0 54422
+## 15      2           1 35258
+## 16      1           0 16353
+## 17      1           1  6674
+## 18      0           0   294
+## 19      0           1   109</code></pre>
 <div id="exercise-7." class="section level3">
 <h3>Exercise 7.</h3>
 <p>Calculate minimum, mean, median, and maximum average daily rate
 (<code>adr</code>) grouped by <code>hotel</code> type so that you can
 get these statistics separately for resort and city hotels. Which type
 of hotel is higher, on average?</p>
-<pre class="r"><code># add code here
-# pay attention to correctness and code style</code></pre>
 </div>
+</div>
+<div id="city-hotels-are-higher-on-average.-not-sure-how-min_adr-can-be-negative-for-resorts.-perhaps-some-sort-of-vouchertravel-promotion" class="section level2">
+<h2>City hotels are higher on average. Not sure how min_adr can be
+negative for Resorts. Perhaps some sort of voucher/travel
+promotion?</h2>
+<pre class="r"><code>hotels %&gt;% 
+  group_by(hotel) %&gt;% 
+  summarise(mean_adr = mean(adr), median_adr = median(adr), max_adr = max(adr), minimum_adr = min(adr)) </code></pre>
+<pre><code>## # A tibble: 2 x 5
+##   hotel        mean_adr median_adr max_adr minimum_adr
+##   &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;
+## 1 City Hotel      105.        99.9    5400        0   
+## 2 Resort Hotel     95.0       75       508       -6.38</code></pre>
 <div id="exercise-8." class="section level3">
 <h3>Exercise 8.</h3>
 <p>We observe two unusual values in the summary statistics above – a
@@ -972,9 +1130,29 @@ reproducible way with some code.</p>
 <p><strong>Hint:</strong> For example, you can <code>filter</code> for
 the given <code>adr</code> amounts and <code>select</code> the relevant
 columns.</p>
-<pre class="r"><code># add code here
-# pay attention to correctness and code style</code></pre>
 </div>
+</div>
+<div id="looks-like-the-adr-is-higher-on-this-one-because-the-denominator-to-calculate-the-adr-was-1-because-of-the-fact-that-the-reservation-was-canceled-and-the-person-never-actually-stayed-there-which-elevated-the-adr-rate.-not-sure-why-the-adr-of-the-other-hotel-was-negative.-they-are-a-repeat-customer-so-maybe-maybe-had-a-free-stay." class="section level2">
+<h2>Looks like the adr is higher on this one because the denominator to
+calculate the adr was 1, because of the fact that the reservation was
+canceled and the person never actually stayed there, which elevated the
+adr rate. Not sure why the adr of the other hotel was negative. They are
+a repeat customer so maybe maybe had a free stay.</h2>
+<pre class="r"><code>hotels %&gt;% 
+  #select(hotel, country, adr, arrival_date_year, arrival_date_month, adults, babies, children) %&gt;% 
+  filter(adr == 5400 | adr == -6.38)</code></pre>
+<pre><code>## # A tibble: 2 x 32
+##   hotel   is_ca~1 lead_~2 arriv~3 arriv~4 arriv~5 arriv~6 stays~7 stays~8 adults
+##   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Resort~       0     195    2017 March        10       5       4       6      2
+## 2 City H~       1      35    2016 March        13      25       0       1      2
+## # ... with 22 more variables: children &lt;dbl&gt;, babies &lt;dbl&gt;, meal &lt;chr&gt;,
+## #   country &lt;chr&gt;, market_segment &lt;chr&gt;, distribution_channel &lt;chr&gt;,
+## #   is_repeated_guest &lt;dbl&gt;, previous_cancellations &lt;dbl&gt;,
+## #   previous_bookings_not_canceled &lt;dbl&gt;, reserved_room_type &lt;chr&gt;,
+## #   assigned_room_type &lt;chr&gt;, booking_changes &lt;dbl&gt;, deposit_type &lt;chr&gt;,
+## #   agent &lt;chr&gt;, company &lt;chr&gt;, days_in_waiting_list &lt;dbl&gt;,
+## #   customer_type &lt;chr&gt;, adr &lt;dbl&gt;, required_car_parking_spaces &lt;dbl&gt;, ...</code></pre>
 </div>
 <div id="data-dictionary" class="section level2">
 <h2>Data dictionary</h2>
